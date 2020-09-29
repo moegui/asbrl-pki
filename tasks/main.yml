@@ -1,0 +1,34 @@
+---
+- name: Create Elasticsearch directory
+  file:
+    path: "{{DESTINATION_PATH}}"
+    state: directory  
+
+- name: Generate an OpenSSH keypair
+  openssh_keypair:
+    path: "{{DESTINATION_PATH}}/{{KEYPAIR_FILENAME}}"
+    type: "{{KEYPAIR_TYPE}}"
+    group: "{{GROUP}}"
+    owner: "{{OWNER}}"
+    mode: "{{MODE}}"
+
+- name: Generate an OpenSSL Certificate Signing Request
+  openssl_csr: 
+    path: "{{DESTINATION_PATH}}/{{CSR_FILENAME}}"
+    privatekey_path: "{{DESTINATION_PATH}}/{{KEYPAIR_FILENAME}}"
+    common_name: "{{CSR_COMMON_NAME}}"
+    group: "{{GROUP}}"
+    owner: "{{OWNER}}"
+    mode: "{{MODE}}"
+
+- name: Generate a {{CRT_PROVIDER}} OpenSSL certificate
+  openssl_certificate:
+    path: "{{DESTINATION_PATH}}/{{CRT_FILENAME}}"
+    privatekey_path: "{{DESTINATION_PATH}}/{{KEYPAIR_FILENAME}}"
+    csr_path: "{{DESTINATION_PATH}}/{{CSR_FILENAME}}"
+    provider: "{{CRT_PROVIDER}}"
+    group: "{{GROUP}}"
+    owner: "{{OWNER}}"
+    mode: "{{MODE}}"
+    subject: "{{CRT_SUBJECT}}"
+    selfsigned_not_after: "{{CRT_SELFSIGNED_NOT_AFTER | default(omit)}}"
