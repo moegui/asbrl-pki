@@ -5,6 +5,7 @@ Generate a KeyPair and a Self-signed certificate.
 
 Requirements
 ------------
+- ssh-keygen
 - PyOpenSSL >= 0.15 or cryptography >= 1.6 (if using selfsigned or assertonly provider)
 - acme-tiny >= 4.0.0 (if using the acme provider)
 
@@ -29,6 +30,7 @@ Role Variables
 
 Dependencies
 ------------
+
 The followings ansible modules:
 - openssh_keypair
 - openssl_csr
