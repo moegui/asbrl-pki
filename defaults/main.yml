@@ -1,0 +1,15 @@
+---
+default_user: ubuntu
+GROUP: "{{default_user}}"
+OWNER: "{{default_user}}"
+MODE: u+r
+DESTINATION_PATH: /home/{{default_user}}/certificates
+KEYPAIR_FILENAME: id_{{KEYPAIR_TYPE}}
+KEYPAIR_TYPE: rsa
+CSR_FILENAME: id_{{KEYPAIR_TYPE}}.csr
+CSR_COMMON_NAME: test
+CRT_FILENAME: id_{{KEYPAIR_TYPE}}.crt
+CRT_PROVIDER: selfsigned
+CRT_SUBJECT: 
+  CN: test
+#CRT_SELFSIGNED_NOT_AFTER: '' #Default 10 years
